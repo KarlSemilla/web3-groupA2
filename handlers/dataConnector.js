@@ -10,7 +10,7 @@ const connect = () => {
         dbName: "funwebdev"
     };
     mongoose.connect(
-    process.env.MONGO_ATLAS_PW, opt);
+    process.env.MONGO_ATLAS_PWD, opt);
     const db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function callback () {
