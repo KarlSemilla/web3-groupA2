@@ -19,7 +19,11 @@ class MovieBrowser extends React.Component {
                          clearAll={this.props.clearAll}
                          nameFilter={this.props.nameFilter}
                          beforeFilter={this.props.beforeFilter}
-                         afterFilter={this.props.afterFilter}/>
+                         afterFilter={this.props.afterFilter}
+                         btwFilter={this.props.btwFilter}
+                         rateBtwFilter={this.props.rateBtwFilter}
+                         aboveFilter={this.props.aboveFilter}
+                         belowFilter={this.props.belowFilter}/>
         </section>
         );
        }

@@ -107,30 +107,70 @@ class App extends React.Component {
 
 
   nameFilter =(name)=>{
+    if(name !== '')
     fetch(`/api/find/title/${name}`)
         .then(response => response.json())
         .then(data => {
-          console.log(data);
+          //console.log(data);
           this.setState({movies:data});
         })
   }
   beforeFilter =(maxYear)=>{
+    if(maxYear !== '')
     fetch(`/api/find/before/${maxYear}`)
         .then(response => response.json())
         .then(data => {
-          console.log(data);
+          //console.log(data);
           this.setState({movies:data});
         })
   }
   afterFilter =(minYear)=>{
+    if(minYear !== '')
     fetch(`/api/find/after/${minYear}`)
         .then(response => response.json())
         .then(data => {
-          console.log(data);
+          //console.log(data);
+          this.setState({movies:data});
+        })
+  }
+  btwFilter =(minYear,maxYear)=>{
+    if(minYear !== '' && maxYear !== '')
+    fetch(`/api/find/year/${minYear}/${maxYear}`)
+        .then(response => response.json())
+        .then(data => {
+          //console.log(data);
+          this.setState({movies:data});
+        })
+  }
+  rateBtwFilter =(minRate,maxRate)=>{
+    if(minRate > 0 && maxRate !== 0)
+    fetch(`/api/find/rating//${minRate}/${maxRate}`)
+        .then(response => response.json())
+        .then(data => {
+          //console.log(data);
+          this.setState({movies:data});
+        })
+  }
+  aboveFilter =(minRate)=>{
+    if(minRate > 0)
+    fetch(`/api/find/above/${minRate}`)
+        .then(response => response.json())
+        .then(data => {
+          //console.log(data);
+          this.setState({movies:data});
+        })
+  }
+  belowFilter =(maxRate)=>{
+    if(maxRate > 0)
+    fetch(`/api/find/below/${maxRate}`)
+        .then(response => response.json())
+        .then(data => {
+          //console.log(data);
           this.setState({movies:data});
         })
   }
 
+  // below is from assignment 1
   // browseSerch=(searchResult,beforeResult,afterResult,startResult,endResult,belowRatingRsult,aboveRatingRsult,startRatingRsult,endRatingRsult)=>{
   //   // handle all filter conditions and passing data to MovieBrowser.js
   //   let newList=[...this.state.jsonData].filter(m => m.title.toLowerCase().includes(searchResult.toLowerCase()));
@@ -279,6 +319,10 @@ class App extends React.Component {
                         nameFilter={this.nameFilter}
                         beforeFilter={this.beforeFilter}
                         afterFilter={this.afterFilter}
+                        btwFilter={this.btwFilter}
+                        rateBtwFilter={this.rateBtwFilter}
+                        aboveFilter={this.aboveFilter}
+                        belowFilter={this.belowFilter}
                         /> }
                     />
                     <Route path='/details'  exact 

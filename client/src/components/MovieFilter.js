@@ -74,18 +74,29 @@ class MovieFilter extends React.Component{
     } 
 
     handleNameFilter=()=>{
-        console.log(this.state.searchValue)
         this.props.nameFilter(this.state.searchValue)
     } 
     handleBeforeFilter=()=>{
-        console.log(this.state.searchValue)
         this.props.beforeFilter(this.state.beforeValue)
     } 
     handleAfterFilter=()=>{
-        console.log(this.state.searchValue)
         this.props.afterFilter(this.state.afterValue)
     } 
+    handleBtwFilter=()=>{
+        this.props.btwFilter(this.state.betStart,this.state.betEnd)
+    } 
+    handleBelowFilter=()=>{
+        this.props.belowFilter(this.state.belowVolume)
+    }
+    handleAboveFilter=()=>{
+        this.props.aboveFilter(this.state.aboveVolume)
+    }
+    handleRateBtwFilter=()=>{
+        this.props.rateBtwFilter(this.state.startVolume,this.state.endVolume)
+    }
 
+
+    //this is from a1
     handleSearch =() => {
         //handle overall filter inputs by using passed data from parent component
         // this.props.browseSerch(this.state.searchValue,this.state.beforeValue,
@@ -136,10 +147,11 @@ class MovieFilter extends React.Component{
                         <legend className=''>Movie Filter</legend>
                         <div className='oneLine'>
                             <label>Movie Name: </label>
+                            <button  className="filterBtn" onClick={this.handleNameFilter}>Search</button>
                             <input className='searchbar' type="text" placeholder="Search.." value={this.state.searchValue}
                             onChange={this.handleSearcheBar}
                             />
-                            <button  className="filterBtn" onClick={this.handleNameFilter}>Search</button>
+                            
                         </div>
                         <div className='yearFilter'>
                             <label> Please type year in one of the categories: </label>
@@ -147,37 +159,42 @@ class MovieFilter extends React.Component{
                                 <input className='radios' type="radio" name="time"  checked={isFinite(this.state.beforeValue)&&this.state.beforeValue!==''}
                                         onChange={this.handleRadio}/>
                                 <label className="lables">Before:</label>
+                                <button  className="filterBtn" onClick={this.handleBeforeFilter}>Search</button>
                                 <input className='searchbar' type="text" placeholder="before.." value={this.state.beforeValue}
                                  onChange={this.handleBeforeBar}
                                 />
-                                <button  className="" onClick={this.handleBeforeFilter}>Search</button>
+                                
                             </div>
                             <div className="oneLine">  
                                 <input className='radios' type="radio" name="time" checked={isFinite(this.state.afterValue!=='')&&this.state.afterValue!==''}
                                         onChange={this.handleRadio}/>
                                 <label className="lables">After:</label>
+                                <button  className="filterBtn" onClick={this.handleAfterFilter}>Search</button>
                                 <input className='searchbar' type="text" placeholder="after.." value={this.state.afterValue}
                                 onChange={this.handleAfterBar}
                                 />
-                                <button  className="" onClick={this.handleAfterFilter}>Search</button>
+                                
                             </div>  
                             <div className="oneLine">    
                                 <input className='radios' type="radio" name="time" 
                                         checked={isFinite(this.state.betStart)&&isFinite(this.state.betEnd)&&this.state.betStart!=='' && this.state.betEnd!==''&&this.state.betStart<=this.state.betEnd}
                                         onChange={this.handleRadio}/>
                                 <label className="lables">Between:</label>
+                                <button  className="filterBtn" onClick={this.handleBtwFilter}>Search</button>
                                 <input className='searchbar' type="text" placeholder="from.." value={this.state.betStart}
                                 onChange={this.handleBetStart}
                                 />
                                 <input className='searchbar' type="text" placeholder="to.." value={this.state.betEnd}
                                  onChange={this.handleBetEnd}
                                 />
+                                
                             </div>
                         </div>
                         <div className='ratingFilter'>
                             <label> Please slide one of the rating ranges below: </label>
                             <div className="oneLine">  
-                                <label>Below: (0-10)</label>
+                                <label>Below: (1-10)</label>
+                                <button  className="filterBtn" onClick={this.handleBelowFilter}>Search</button>
                                 <input className='radios' type="radio" name="rating" checked={isFinite(this.state.belowVolume)&&this.state.belowVolume!==0}
                                                 onChange={this.handleRadio}/>
                                 <Slider  className="slider"
@@ -190,7 +207,8 @@ class MovieFilter extends React.Component{
                             </div>
 
                             <div className="oneLine">  
-                                <label>Above: (0-10)</label>
+                                <label>Above: (1-10)</label>
+                                <button  className="filterBtn" onClick={this.handleAboveFilter}>Search</button>
                                 <input className='radios' type="radio" name="rating" checked={isFinite(this.state.aboveVolume)&&this.state.aboveVolume!==0}
                                                 onChange={this.handleRadio}/>
                                 <Slider  className="slider"
@@ -203,7 +221,8 @@ class MovieFilter extends React.Component{
                             </div>
 
                             <div className="oneLine">  
-                                <label>Between: (0-10)</label>
+                                <label>Between: (1-10)</label>
+                                <button  className="filterBtn" onClick={this.handleRateBtwFilter}>Search</button>
                                 <input className='radios' type="radio" name="rating" 
                                         checked={isFinite(this.state.startVolume)&&isFinite(this.state.endVolume)&&this.state.startVolume!==0 && this.state.endVolume!==0 && this.state.startVolume<=this.state.endVolume}
                                         onChange={this.handleRadio}/>
