@@ -23,7 +23,7 @@ router.get('/movies',helper.ensureAuthenticated, (req,resp) => {
 });
 
 // handle requests for specific img: e.g., /api/images/1
-router.get('/movies/:id',,helper.ensureAuthenticated, (req,resp) => {
+router.get('/movies/:id',helper.ensureAuthenticated, (req,resp) => {
     Movie.find({id: req.params.id}, (err, data) => {
         if (err) {
             resp.json({ message: 'Img not found' });
