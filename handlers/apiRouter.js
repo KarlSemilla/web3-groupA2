@@ -9,7 +9,7 @@ const router = express.Router();
 
 
 //handle GET requests for [domain]/api/images - return all Images
-router.get('/movies', (req,resp) => {
+router.get('/movies',helper.ensureAuthenticated, (req,resp) => {
     // use mongoose to retrieve all imgs from Mongo
     Movie.find({}, function(err, data) {
         if (err) {
@@ -23,7 +23,7 @@ router.get('/movies', (req,resp) => {
 });
 
 // handle requests for specific img: e.g., /api/images/1
-router.get('/movies/:id', (req,resp) => {
+router.get('/movies/:id',,helper.ensureAuthenticated, (req,resp) => {
     Movie.find({id: req.params.id}, (err, data) => {
         if (err) {
             resp.json({ message: 'Img not found' });
@@ -47,7 +47,7 @@ router.get('/brief',helper.ensureAuthenticated, (req,resp) => {
     });
 });
 
-router.get('/find/year/:min/:max', (req,resp) => {
+router.get('/find/year/:min/:max',helper.ensureAuthenticated, (req,resp) => {
     Movie.find().where('release_date'.slice())
     .gt(req.params.min)
     .lt(req.params.max)
@@ -88,7 +88,34 @@ router.get('/find/before/:max',helper.ensureAuthenticated, (req,resp) => {
     });
 });
 
-router.get('/find/rating/:min/:max', (req,resp) =>{
+
+router.get('/find/above/:min',helper.ensureAuthenticated, (req,resp) =>{
+    Movie.find().where('ratings.average')
+    .gte(req.params.min)
+    .sort({ 'ratings.average': 1})
+
+    .exec( function(err, data) {
+    if (err) {
+    resp.json({ message: 'Movies not found' });
+    } else {
+    resp.json(data);
+    }
+    });
+});
+router.get('/find/below/:max',helper.ensureAuthenticated, (req,resp) =>{
+    Movie.find().where('ratings.average')
+    .lte(req.params.max)
+    .sort({ 'ratings.average': 1})
+
+    .exec( function(err, data) {
+    if (err) {
+    resp.json({ message: 'Movies not found' });
+    } else {
+    resp.json(data);
+    }
+    });
+});
+router.get('/find/rating/:min/:max',helper.ensureAuthenticated, (req,resp) =>{
     Movie.find().where('ratings.average')
     .gt(req.params.min)
     .lt(req.params.max)
