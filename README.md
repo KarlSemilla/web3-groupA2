@@ -10,6 +10,6 @@ npm install <br />
 cd .. <br />
 npm run dev
 
-# In your new browser:
+# Open localhost:8080 and in the browser:
 login with any email in the user json data provided by randy (e.g al@ace.ca), password is mypassword
 
