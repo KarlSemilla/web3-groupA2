@@ -6,7 +6,8 @@ cd client <br />
 npm install <br />
 
 
-# After you install both package (from your ROOT dir):
+# After you install both package:
+cd .. <br />
 npm run dev
 
 # In your new browser:
