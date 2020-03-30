@@ -141,10 +141,9 @@ class MovieFilter extends React.Component{
                     {/* set show or hide the form by chaning the className */}
                     <form className={classes} onSubmit={e => {e.preventDefault();}}>
                         <div className="btns">
-            
-                            <button  className="clearBtn" onClick={this.handleClear}>Clear</button>
+                            <button  className="clearBtn" onClick={this.handleClear}>Clear Filters</button>
                         </div>
-                        <legend className=''>Movie Filter</legend>
+                        <legend className='l_filter'>Movie Filters</legend>
                         <div className='oneLine'>
                             <label>Movie Name: </label>
                             <button  className="filterBtn" onClick={this.handleNameFilter}>Search</button>
@@ -160,7 +159,7 @@ class MovieFilter extends React.Component{
                                         onChange={this.handleRadio}/>
                                 <label className="lables">Before:</label>
                                 <button  className="filterBtn" onClick={this.handleBeforeFilter}>Search</button>
-                                <input className='searchbar' type="text" placeholder="before.." value={this.state.beforeValue}
+                                <input className='searchbar' type="text" placeholder="Before.." value={this.state.beforeValue}
                                  onChange={this.handleBeforeBar}
                                 />
                                 
@@ -170,7 +169,7 @@ class MovieFilter extends React.Component{
                                         onChange={this.handleRadio}/>
                                 <label className="lables">After:</label>
                                 <button  className="filterBtn" onClick={this.handleAfterFilter}>Search</button>
-                                <input className='searchbar' type="text" placeholder="after.." value={this.state.afterValue}
+                                <input className='searchbar' type="text" placeholder="After.." value={this.state.afterValue}
                                 onChange={this.handleAfterBar}
                                 />
                                 
@@ -181,10 +180,10 @@ class MovieFilter extends React.Component{
                                         onChange={this.handleRadio}/>
                                 <label className="lables">Between:</label>
                                 <button  className="filterBtn" onClick={this.handleBtwFilter}>Search</button>
-                                <input className='searchbar' type="text" placeholder="from.." value={this.state.betStart}
+                                <input className='searchbar' type="text" placeholder="From.." value={this.state.betStart}
                                 onChange={this.handleBetStart}
                                 />
-                                <input className='searchbar' type="text" placeholder="to.." value={this.state.betEnd}
+                                <input className='searchbar' type="text" placeholder="To.." value={this.state.betEnd}
                                  onChange={this.handleBetEnd}
                                 />
                                 

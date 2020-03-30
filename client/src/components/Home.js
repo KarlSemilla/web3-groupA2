@@ -23,7 +23,7 @@ class Home extends React.Component {
     }
 
  render() {
-    let imgUrl = "https://source.unsplash.com/user/erondu/daily";
+    let imgUrl = "https://images.unsplash.com/photo-1528460033278-a6ba57020470?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=975&q=80";
     //got image from https://source.unsplash.com/
     return (
         <div>
@@ -37,16 +37,15 @@ class Home extends React.Component {
                 <div className='homeContainer'>
                     <h1 className='brand'>Movie Browser</h1>
                     <form>
-                        <label className='title'>Movie Name: </label>
                         <input className='input' type="text" placeholder="Search.." 
                                 onChange={this.handleBar}/>
                     </form>
                     <div>
                         <Link to='/browse'>
-                            <button className = 'btn' onClick = {this.handleSearch}>Display Matching Movies</button>
+                            <button className = 'button' onClick = {this.handleSearch}>Display Matching Movies</button>
                         </Link>
                         <Link to='/browse'>
-                            <button className = 'btn' onClick = {this.handleBrowse}>Show All Movies</button>
+                            <button className = 'button' onClick = {this.handleBrowse}>Show All Movies</button>
                         </Link>
                     </div>
                 </div>
