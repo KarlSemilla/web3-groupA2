@@ -22,7 +22,14 @@ const userSchema = new mongoose.Schema({
    },
    email: String,
    password_bcrypt: String,
-   apikey: String
+   apikey: String,
+   favorites: [
+    {
+      movie_id: Number,
+      poster: String,
+      title: String
+    }
+  ]
  });
 
 //We'll use this later on to make sure that the user trying to log in has the correct credentials

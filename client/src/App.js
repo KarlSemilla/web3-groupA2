@@ -144,7 +144,7 @@ class App extends React.Component {
   }
   rateBtwFilter =(minRate,maxRate)=>{
     if(minRate > 0 && maxRate !== 0)
-    fetch(`/api/find/rating//${minRate}/${maxRate}`)
+    fetch(`/api/find/rating/${minRate}/${maxRate}`)
         .then(response => response.json())
         .then(data => {
           //console.log(data);
