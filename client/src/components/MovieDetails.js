@@ -23,24 +23,24 @@ class MovieDetails extends React.Component{
     }
 
     async componentDidMount() {
-        this._isMounted = true;
+        //this._isMounted = true;
         try {
           //fetch data depending on the passed id from parent component
-          const url2 = 'https://ancient-reef-50076.herokuapp.com/api/movies/';
+          const url2 = '/api/movies/';
           const response = await fetch(url2+ this.props.currentMovie);
-          if (this._isMounted) {
+          //if (this._isMounted) {
             this.setState({detailData:await response.json()});
             this.setState( {loaded: true } );
-          }  
+         // }  
         }
         catch (error) {
           console.error(error);
         }
     }
-    UNSAFE_componentWillUnmount() {
-        //handle if data has not mounted yet, learned from https://www.robinwieruch.de/react-warning-cant-call-setstate-on-an-unmounted-component
-       this._isMounted = false;
-     }
+    // UNSAFE_componentWillUnmount() {
+    //     //handle if data has not mounted yet, learned from https://www.robinwieruch.de/react-warning-cant-call-setstate-on-an-unmounted-component
+    //    this._isMounted = false;
+    //  }
 
     addToFav=()=>{
         //handle add to favorite button in details view

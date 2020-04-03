@@ -19,7 +19,16 @@
       "email":"al@ace.ca",
       "password_bcrypt":"$2a$12$1vW67dGpXFLVGTZ801rW2.VcQpG8oN5/o0U3eQtgyMaAQumQClMoW",
       "apikey":"0448f51952475625df9394bda9904912",
-      "favorites" : []
+      "favorites" : [{
+         "id": 2,
+         "poster": "/w9Z7A0GHEhIp7etpj0vyKOeU1Wx.jpg",
+         "title": "The Princess Diaries 2: Royal Engagement"
+       },
+       {
+         "id": 11,
+         "title": "Rocky",
+         "poster": "/i5xiwdSsrecBvO7mIfAJixeEDSg.jpg"
+       }]
    },
    {  
       "id":2,
