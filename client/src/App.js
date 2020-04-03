@@ -1,13 +1,13 @@
-import React from 'react';
-import {Route,Switch} from 'react-router-dom';
-import Home from './components/Home.js';
-import Favs from './components/Favs.js';
-import MovieDetails from './components/MovieDetails.js';
-import './App.css';
-import HeaderApp from './components/HeaderApp.js';
-import MovieBrowser from './components/MovieBrowser.js';
-import {CSSTransition,TransitionGroup,} from 'react-transition-group';
-import loading from './loading.gif';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import Home from "./components/Home.js";
+import Favs from "./components/Favs.js";
+import MovieDetails from "./components/MovieDetails.js";
+import "./App.css";
+import HeaderApp from "./components/HeaderApp.js";
+import MovieBrowser from "./components/MovieBrowser.js";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import loading from "./loading.gif";
 //import Log from './home.ejs';
 //import Log from './Log.js';
 //import Profile from './components/Profile.js';
@@ -15,20 +15,21 @@ import loading from './loading.gif';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
-                  currentMovie: 0,
-                  movies:[], 
-                  favorites:[],
-                  jsonData: [],
-                  detailData: [],
-                  movieDetails: [],
-                  stored: false,
-                  loaded: false,
-                  };
-   }
-   //Leard React LocalStorage in https://www.youtube.com/watch?v=ZZS1irWSfxc&t=325s
-  //  UNSAFE_componentWillMount(){ 
-  //   localStorage.getItem('movies') && this.setState({ 
+    this.state = {
+      currentUserID: null,
+      currentMovie: 0,
+      movies: [],
+      favorites: [],
+      jsonData: [],
+      detailData: [],
+      movieDetails: [],
+      stored: false,
+      loaded: false
+    };
+  }
+  //Leard React LocalStorage in https://www.youtube.com/watch?v=ZZS1irWSfxc&t=325s
+  //  UNSAFE_componentWillMount(){
+  //   localStorage.getItem('movies') && this.setState({
   //     //update states if the data stored in local storage
   //       jsonData: JSON.parse(localStorage.getItem('movies')),
   //       movies: JSON.parse(localStorage.getItem('movies')),
@@ -37,22 +38,21 @@ class App extends React.Component {
   //       isLoading: true
   //   })
   //  }
-   async componentDidMount() {
+  async componentDidMount() {
     //if(!localStorage.getItem('movies')){
-      //Fetch data it has not been stored in local storage
-      try {
+    //Fetch data it has not been stored in local storage
+    try {
       const url = "/api/brief";
-        const response = await fetch(url);
-        const jsonData=await response.json()
-        this.setState( {jsonData: jsonData } );
-        this.state.jsonData.sort((a, b) => (a.title > b.title) ? 1 : -1)
-        this.setState( {movies: this.state.jsonData } );
-        this.setState({loaded:true})
-        }
-        catch (error) {
-          console.error(error);
-        }
-    // } else{ 
+      const response = await fetch(url);
+      const jsonData = await response.json();
+      this.setState({ jsonData: jsonData });
+      this.state.jsonData.sort((a, b) => (a.title > b.title ? 1 : -1));
+      this.setState({ movies: this.state.jsonData });
+      this.setState({ loaded: true });
+    } catch (error) {
+      console.error(error);
+    }
+    // } else{
     //   //use the data in local storage
     //   this.setState({
     //     jsonData: JSON.parse(localStorage.getItem('movies')),
@@ -60,7 +60,15 @@ class App extends React.Component {
     //     isLoading: false
     //   })
     // }
-   }
+  }
+
+  loadFavsFromDb = favs => {
+    this.setState({ favorites: favs });
+  };
+
+  getCurrUserID = id => {
+    this.setState({ currentUserID: id });
+  };
 
   //  UNSAFE_componentWillUpdate(nextProps, nextState){
   //    //set data in local storage
@@ -70,105 +78,121 @@ class App extends React.Component {
   //    localStorage.setItem('loaded', JSON.stringify(nextState.loaded));
   //  }
 
-   performSerch=(result)=>{
-     //search for matched when user type something and click "Display Matching Movies" in homepage, 
-     //or when the user try to filter by title in movie browser page; passing data to MovieBrowser.js
-    if(result === ''){
-      this.setState({movies:[]});
-    }else{
-      this.setState({movies:this.state.jsonData});
-      const newList=[...this.state.jsonData].filter(m => m.title.toLowerCase().includes(result.toLowerCase()));
-      this.setState({movies:newList});
+  performSerch = result => {
+    //search for matched when user type something and click "Display Matching Movies" in homepage,
+    //or when the user try to filter by title in movie browser page; passing data to MovieBrowser.js
+    if (result === "") {
+      this.setState({ movies: [] });
+    } else {
+      this.setState({ movies: this.state.jsonData });
+      const newList = [...this.state.jsonData].filter(m =>
+        m.title.toLowerCase().includes(result.toLowerCase())
+      );
+      this.setState({ movies: newList });
     }
+  };
+  performBrowse = () => {
+    //display all movies when user click "Display all movies"
+    this.setState({ movies: this.state.jsonData });
+  };
 
-   }
-   performBrowse=()=>{
-     //display all movies when user click "Display all movies"
-    this.setState({movies:this.state.jsonData});
-   }
-
-   showFavs=(id)=>{
+  showFavs = async id => {
     //passing data to Favs.js
-    const data = this.state.favorites;
-        const movieFav = this.state.movies.find( p => p.id === id);
-        const exist = data.find( p => p.id === id);
-        if(exist){
-        }else {data.push(movieFav);}
-    this.setState({favorites:data});
-  }
+    const data = [...this.state.favorites];
+    const movieFav = this.state.movies.find(p => p.id === id);
+    const exist = data.find(p => p.id === id);
+    if (exist) {
+      return;
+    } else {
+      data.push(movieFav);
+    }
+    this.setState({ favorites: data });
+    await this.updateFavDb(data);
+  };
 
-  closeFav=(id)=>{
+  closeFav = async id => {
     // remove data from favorite list; passing data to Favs.js
-    const data = this.state.favorites;
-    const removeFav = data.filter( p => p.id !== id);    
-    this.setState({favorites:removeFav});
+    const data = [...this.state.favorites];
+    const removeFav = data.filter(p => p.id !== id);
+    console.log(removeFav);
+    this.setState({ favorites: removeFav });
+    await this.updateFavDb(removeFav);
+  };
 
-  }
+  updateFavDb = async newFavs => {
+    fetch(`api/user/${this.state.currentUserID}/update/favorite`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newFavs)
+    });
+  };
 
-
-  nameFilter =(name)=>{
-    if(name !== '')
-    fetch(`/api/find/title/${name}`)
+  nameFilter = name => {
+    if (name !== "")
+      fetch(`/api/find/title/${name}`)
         .then(response => response.json())
         .then(data => {
           //console.log(data);
-          this.setState({movies:data});
-        })
-  }
-  beforeFilter =(maxYear)=>{
-    if(maxYear !== '')
-    fetch(`/api/find/before/${maxYear}`)
+          this.setState({ movies: data });
+        });
+  };
+  beforeFilter = maxYear => {
+    if (maxYear !== "")
+      fetch(`/api/find/before/${maxYear}`)
         .then(response => response.json())
         .then(data => {
           //console.log(data);
-          this.setState({movies:data});
-        })
-  }
-  afterFilter =(minYear)=>{
-    if(minYear !== '')
-    fetch(`/api/find/after/${minYear}`)
+          this.setState({ movies: data });
+        });
+  };
+  afterFilter = minYear => {
+    if (minYear !== "")
+      fetch(`/api/find/after/${minYear}`)
         .then(response => response.json())
         .then(data => {
           //console.log(data);
-          this.setState({movies:data});
-        })
-  }
-  btwFilter =(minYear,maxYear)=>{
-    if(minYear !== '' && maxYear !== '')
-    fetch(`/api/find/year/${minYear}/${maxYear}`)
+          this.setState({ movies: data });
+        });
+  };
+  btwFilter = (minYear, maxYear) => {
+    if (minYear !== "" && maxYear !== "")
+      fetch(`/api/find/year/${minYear}/${maxYear}`)
         .then(response => response.json())
         .then(data => {
           //console.log(data);
-          this.setState({movies:data});
-        })
-  }
-  rateBtwFilter =(minRate,maxRate)=>{
-    if(minRate > 0 && maxRate !== 0)
-    fetch(`/api/find/rating/${minRate}/${maxRate}`)
+          this.setState({ movies: data });
+        });
+  };
+  rateBtwFilter = (minRate, maxRate) => {
+    if (minRate > 0 && maxRate !== 0)
+      fetch(`/api/find/rating/${minRate}/${maxRate}`)
         .then(response => response.json())
         .then(data => {
           //console.log(data);
-          this.setState({movies:data});
-        })
-  }
-  aboveFilter =(minRate)=>{
-    if(minRate > 0)
-    fetch(`/api/find/above/${minRate}`)
+          this.setState({ movies: data });
+        });
+  };
+  aboveFilter = minRate => {
+    if (minRate > 0)
+      fetch(`/api/find/above/${minRate}`)
         .then(response => response.json())
         .then(data => {
           //console.log(data);
-          this.setState({movies:data});
-        })
-  }
-  belowFilter =(maxRate)=>{
-    if(maxRate > 0)
-    fetch(`/api/find/below/${maxRate}`)
+          this.setState({ movies: data });
+        });
+  };
+  belowFilter = maxRate => {
+    if (maxRate > 0)
+      fetch(`/api/find/below/${maxRate}`)
         .then(response => response.json())
         .then(data => {
           //console.log(data);
-          this.setState({movies:data});
-        })
-  }
+          this.setState({ movies: data });
+        });
+  };
 
   // below is from assignment 1
   // browseSerch=(searchResult,beforeResult,afterResult,startResult,endResult,belowRatingRsult,aboveRatingRsult,startRatingRsult,endRatingRsult)=>{
@@ -210,135 +234,167 @@ class App extends React.Component {
   //   }
   // }
 
-  clearAll=(e)=>{
+  clearAll = e => {
     //display all movies when user click 'Clear' in filters
-    this.setState({movies:this.state.jsonData});
-  }
+    this.setState({ movies: this.state.jsonData });
+  };
 
-  sortTitle=(movies)=>{
+  sortTitle = movies => {
     //sort the movie table by titles
-    if(movies[0].title < movies[1].title){
-    movies.sort((a, b) => (a.title < b.title) ? 1 : -1)
-    this.setState({movies:movies});
-    }else{
-    movies.sort((a, b) => (a.title > b.title) ? 1 : -1)
-    this.setState({movies:movies});
+    if (movies[0].title < movies[1].title) {
+      movies.sort((a, b) => (a.title < b.title ? 1 : -1));
+      this.setState({ movies: movies });
+    } else {
+      movies.sort((a, b) => (a.title > b.title ? 1 : -1));
+      this.setState({ movies: movies });
     }
-  }
-  sortYear=(movies)=>{
+  };
+  sortYear = movies => {
     //sort the movie table by years
-    if(movies[0].release_date < movies[1].release_date){
-    movies.sort((a, b) => (a.release_date < b.release_date) ? 1 : -1)
-    this.setState({movies:movies});
-    }else{
-    movies.sort((a, b) => (a.release_date > b.release_date) ? 1 : -1)
-    this.setState({movies:movies});
+    if (movies[0].release_date < movies[1].release_date) {
+      movies.sort((a, b) => (a.release_date < b.release_date ? 1 : -1));
+      this.setState({ movies: movies });
+    } else {
+      movies.sort((a, b) => (a.release_date > b.release_date ? 1 : -1));
+      this.setState({ movies: movies });
     }
-  }
-  sortRating=(movies)=>{
+  };
+  sortRating = movies => {
     //sort the movie table by ratings
-    if(movies[0].ratings.average <= movies[1].ratings.average){
-    movies.sort((a, b) => (a.ratings.average <= b.ratings.average) ? 1 : -1)
-    this.setState({movies:movies});
-    }else{
-    movies.sort((a, b) => (a.ratings.average > b.ratings.average) ? 1 : -1)
-    this.setState({movies:movies});
+    if (movies[0].ratings.average <= movies[1].ratings.average) {
+      movies.sort((a, b) => (a.ratings.average <= b.ratings.average ? 1 : -1));
+      this.setState({ movies: movies });
+    } else {
+      movies.sort((a, b) => (a.ratings.average > b.ratings.average ? 1 : -1));
+      this.setState({ movies: movies });
     }
-  }
-  showDetails=(id)=>{
+  };
+  showDetails = id => {
     //passing data to MovieBrowser.js so that the correct movie id will be used for fetching data in MovieDetials.js
-     this.setState({currentMovie:id})
-  }
+    this.setState({ currentMovie: id });
+  };
 
-  render(){
-    if(!this.state.loaded){
+  render() {
+    if (!this.state.loaded) {
       //display loading image in the data has not in user's local storage yet
-      return(
-        <div className='loadContainer'>
-        <img src={loading} alt='loading'
-              style={{
-              display: 'block',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginTop: '10em',
-              width:'50%'
-              }}/>
+      return (
+        <div className="loadContainer">
+          <img
+            src={loading}
+            alt="loading"
+            style={{
+              display: "block",
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginTop: "10em",
+              width: "50%"
+            }}
+          />
         </div>
-      )
-    }else{
+      );
+    } else {
       return (
         <main>
-          <HeaderApp />
-          <Favs favorites = {this.state.favorites}
-                closeFav = {this.closeFav}
-                showDetails={this.showDetails}
-                />
-          <Route 
-              path='/test/' exact 
-              component={()=> <Home performSerch={this.performSerch}
-                                    performBrowse={this.performBrowse}/>} 
-            />
-            <Route 
-              path='/' exact 
-              component={()=> <Home performSerch={this.performSerch}
-                                    performBrowse={this.performBrowse}/>} 
-            />
-          <Route render={ ({location}) => ( 
-            //Learned transition from https://www.youtube.com/watch?v=NUQkajBdnmQ
-            <TransitionGroup>
-              <CSSTransition
-                key={location.key}
-                timeout={400}
-                classNames='fade'>
-                <Switch>
-                  <Route 
-                    path='/home' exact 
-                    component={()=> <Home performSerch={this.performSerch}
-                                          performBrowse={this.performBrowse}/>} 
-                  />
-                  {/* <Route 
+          <HeaderApp
+            loadFavsFromDb={this.loadFavsFromDb}
+            getCurrUserID={this.getCurrUserID}
+          />
+          <Favs
+            favorites={this.state.favorites}
+            closeFav={this.closeFav}
+            showDetails={this.showDetails}
+          />
+          <Route
+            path="/test/"
+            exact
+            component={() => (
+              <Home
+                performSerch={this.performSerch}
+                performBrowse={this.performBrowse}
+              />
+            )}
+          />
+          <Route
+            path="/"
+            exact
+            component={() => (
+              <Home
+                performSerch={this.performSerch}
+                performBrowse={this.performBrowse}
+              />
+            )}
+          />
+          <Route
+            render={({ location }) => (
+              //Learned transition from https://www.youtube.com/watch?v=NUQkajBdnmQ
+              <TransitionGroup>
+                <CSSTransition
+                  key={location.key}
+                  timeout={400}
+                  classNames="fade"
+                >
+                  <Switch>
+                    <Route
+                      path="/home"
+                      exact
+                      component={() => (
+                        <Home
+                          performSerch={this.performSerch}
+                          performBrowse={this.performBrowse}
+                        />
+                      )}
+                    />
+                    {/* <Route 
                     path='/profile' exact 
                     component={()=> <Profile/>} 
                   /> */}
-                  {/* <Route 
+                    {/* <Route 
                     path='/log' exact 
                     component={()=> <Log/>} 
                   /> */}
-                  <Route path='/browse' exact
-                    render={ (props) =>
-                      <MovieBrowser
-                        movies={this.state.movies}
-                        // updatePhoto={this.updatePhoto}
-                        showFavs = {this.showFavs}
-                        browseSerch={this.browseSerch}
-                        clearAll={this.clearAll}
-                        sortTitle={this.sortTitle}
-                        sortYear={this.sortYear}
-                        sortRating={this.sortRating}
-                        showDetails={this.showDetails}
-                        nameFilter={this.nameFilter}
-                        beforeFilter={this.beforeFilter}
-                        afterFilter={this.afterFilter}
-                        btwFilter={this.btwFilter}
-                        rateBtwFilter={this.rateBtwFilter}
-                        aboveFilter={this.aboveFilter}
-                        belowFilter={this.belowFilter}
-                        /> }
+                    <Route
+                      path="/browse"
+                      exact
+                      render={props => (
+                        <MovieBrowser
+                          movies={this.state.movies}
+                          // updatePhoto={this.updatePhoto}
+                          showFavs={this.showFavs}
+                          browseSerch={this.browseSerch}
+                          clearAll={this.clearAll}
+                          sortTitle={this.sortTitle}
+                          sortYear={this.sortYear}
+                          sortRating={this.sortRating}
+                          showDetails={this.showDetails}
+                          nameFilter={this.nameFilter}
+                          beforeFilter={this.beforeFilter}
+                          afterFilter={this.afterFilter}
+                          btwFilter={this.btwFilter}
+                          rateBtwFilter={this.rateBtwFilter}
+                          aboveFilter={this.aboveFilter}
+                          belowFilter={this.belowFilter}
+                        />
+                      )}
                     />
-                    <Route path='/details'  exact 
-                      render={ (props) =>
+                    <Route
+                      path="/details"
+                      exact
+                      render={props => (
                         <MovieDetails
-                          movies = {this.state.movies}
+                          movies={this.state.movies}
                           currentMovie={this.state.currentMovie}
-                          showFavs = {this.showFavs}
-                      />} 
-                  />
-                </Switch>
-              </CSSTransition>
-            </TransitionGroup>
-          )} />
-       </main>
-    );}
+                          showFavs={this.showFavs}
+                        />
+                      )}
+                    />
+                  </Switch>
+                </CSSTransition>
+              </TransitionGroup>
+            )}
+          />
+        </main>
+      );
+    }
   }
 }
 export default App;
