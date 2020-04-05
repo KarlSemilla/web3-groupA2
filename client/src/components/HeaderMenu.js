@@ -2,7 +2,10 @@ import React from "react";
 import "./MovieDetails.css";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
+// import Button from "react-bootstrap/Button";
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { makeStyles } from '@material-ui/core/styles';
 //import { NavLink } from 'react-router-dom';
 //import {Route,Redirect} from 'react-router-dom';
 
@@ -66,19 +69,15 @@ class HeaderMenu extends React.Component {
     return (
       //Learned how to use Model and Button from https://react-bootstrap.github.io/components/modal/
       <>
-        <Button variant="primary" onClick={this.handleShow}>
-          About
-        </Button>
-        <Button variant="primary" onClick={this.handleProShow}>
-          Profile
-        </Button>
-        {/* <Button variant="primary"><NavLink exact to='/profile' activeClassName='active'>Profile
-            </NavLink></Button> */}
-        <Button variant="primary">
-          <a href={"http://localhost:8080/logout"}>
+      <div class="button1">
+      <ButtonGroup size="large" variant="contained" color="primary" aria-label="contained primary button group">
+        <Button onClick={this.handleShow}>About</Button>
+        <Button  onClick={this.handleProShow}>Profile</Button>
+        <Button> <a href={"http://localhost:8080/logout"}>
             <span className="logout">Log out</span>
-          </a>
-        </Button>
+          </a></Button>
+      </ButtonGroup>
+      </div>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>COMP4513 - Assignment1</Modal.Title>

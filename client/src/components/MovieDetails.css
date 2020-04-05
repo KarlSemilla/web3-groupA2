@@ -133,7 +133,9 @@
 /* .table1 thead {
     position: fixed;
 } */
-
+.button1 button{
+  margin:10px;
+}
 .table1 th:nth-child(1){
     cursor: unset;
   }

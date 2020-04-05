@@ -36,7 +36,7 @@ class MovieThumb extends React.Component {
                     <p>{this.props.movie.ratings.average}</p>
                 </td>
                 <td>
-                    <button className = 'button' onClick={this.handleFavClick}>❤</button>
+                    <button className = 'heart' onClick={this.handleFavClick}>❤</button>
                 </td>
                 <td>
                     <NavLink to='/details' activeClassName='active'>
