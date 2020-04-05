@@ -2,7 +2,6 @@ import React from "react";
 import "./MovieDetails.css";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import Button from "react-bootstrap/Button";
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { makeStyles } from '@material-ui/core/styles';
@@ -80,9 +79,10 @@ class HeaderMenu extends React.Component {
       </div>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>COMP4513 - Assignment1</Modal.Title>
+            <Modal.Title>COMP4513 - Assignment 2</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+          <div class="body">
             <p>Group members</p>
             <ul>
             <li>Yichen Li</li>
@@ -139,20 +139,21 @@ class HeaderMenu extends React.Component {
                 Material UI
               </a></li>
             </ul>
+            </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
+          <div class="bottomBtn">
+            <Button variant="contained" color="secondary" onClick={this.handleClose}>
               Close
             </Button>
+          </div>
           </Modal.Footer>
         </Modal>
 
         <Modal show={this.state.showPro} onHide={this.handleProClose}>
           <Modal.Header closeButton>
-            <Modal.Title>User Information</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <img
+            <div class="avatar">
+            <img 
               src={
                 this.state.jsonData &&
                 this.state.jsonData.user &&
@@ -161,37 +162,37 @@ class HeaderMenu extends React.Component {
               }
               alt=""
             ></img>
-            <p>
-              First Name:{" "}
+            <div class="heading">
+            <h1>
               {this.state.jsonData &&
                 this.state.jsonData.user &&
                 this.state.jsonData.user.details &&
-                this.state.jsonData.user.details.firstname}
-            </p>
-            <p>
-              Last Name:{" "}
-              {this.state.jsonData &&
+                this.state.jsonData.user.details.firstname}  
+                 </h1>
+                 <h1>
+                 {this.state.jsonData &&
                 this.state.jsonData.user &&
                 this.state.jsonData.user.details &&
                 this.state.jsonData.user.details.lastname}
-            </p>
-            <p>
-              City:{" "}
+                </h1>
+            </div>
+              </div>
+          </Modal.Header>
+          <Modal.Body>
+            <div class="details">
               {this.state.jsonData &&
                 this.state.jsonData.user &&
                 this.state.jsonData.user.details &&
-                this.state.jsonData.user.details.city}
-            </p>
-            <p>
-              Country:{" "}
+                this.state.jsonData.user.details.city}  ,
+                &nbsp;
               {this.state.jsonData &&
                 this.state.jsonData.user &&
                 this.state.jsonData.user.details &&
                 this.state.jsonData.user.details.country}
-            </p>
+            </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleProClose}>
+            <Button variant="contained" color="secondary" onClick={this.handleProClose}>
               Close
             </Button>
           </Modal.Footer>
