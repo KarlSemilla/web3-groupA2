@@ -23,10 +23,12 @@
 
 }
 .left img{
+    width:250px;
+    height:400px;
     margin-top: 2em;
 }
 .left button{
-    margin: 1em;
+    margin: 2em;
 }
 .left h1{
     font-weight: bolder;

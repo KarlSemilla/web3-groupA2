@@ -83,11 +83,18 @@ class HeaderMenu extends React.Component {
             <Modal.Title>COMP4513 - Assignment1</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>Group member: Yichen Li</p>
+            <p>Group members</p>
+            <ul>
+            <li>Yichen Li</li>
+            <li>Katrina Pauls</li>
+            <li>Karl Semilla</li>
+            <li>Derek Nguyen</li>
+            <li>Chris Kwong </li>
+            </ul>
             <p>
-              <a href="https://lyc2760008.github.io/test">Github Link</a>
+              <a href="https://github.com/lyc2760008/web3-groupA2">Github Link</a>
             </p>
-            <p>Technology used: React</p>
+            <p>Technology used: React, Node JS</p>
             <p>Learning sources:</p>
             <ul className="fa-ul">
               <li>
@@ -122,11 +129,16 @@ class HeaderMenu extends React.Component {
               </li>
             </ul>
             <p>
-              Third party code used:{" "}
-              <a href=" https://codepen.io/kunihiko_sugiura/pen/YGbmKj">
+              Third party code used:
+              </p>
+              <ul>
+              <li><a href=" https://codepen.io/kunihiko_sugiura/pen/YGbmKj">
                 Half star for ratings
-              </a>
-            </p>
+              </a></li>
+              <li><a href=" https://material-ui.com/">
+                Material UI
+              </a></li>
+            </ul>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>

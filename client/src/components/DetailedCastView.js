@@ -27,8 +27,8 @@ class DetailedCastView extends React.Component{
                     {this.state.personData && this.state.personData.profile_path && this.state.personData.profile_path !=='' ? 
                     <img src={imgURL+this.state.personData.profile_path} alt={this.state.personData.name}/> : 
                     <img src={emptyPhoto} alt='N/A' style = {{ 
-                                                    height: '275px',
-                                                    width: '185px'
+                                                    height: '400px',
+                                                    width: '250px'
                                                     }}/>}
                 </div>
                 <div className="mid">

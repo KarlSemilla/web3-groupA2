@@ -80,12 +80,9 @@ code {
   grid-auto-flow: column;
   align-items: center;
   grid-gap: 10px;
-  background-color: rgb(112, 209, 112);
   color: white;
   padding: 0px;
   height: 8em;
-  /*The following line retrieved from: https://designshack.net/articles/css/css3-cookbook-7-super-easy-css-recipes-to-copy-and-paste/*/
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(4%,#5fc6a2), color-stop(50%,#aabfb7), color-stop(51%,#5fc6a2), color-stop(100%,#4b335e));
 }
 
 .header-titles h1 {
