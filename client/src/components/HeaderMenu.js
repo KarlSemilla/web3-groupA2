@@ -188,7 +188,12 @@ class HeaderMenu extends React.Component {
               {this.state.jsonData &&
                 this.state.jsonData.user &&
                 this.state.jsonData.user.details &&
-                this.state.jsonData.user.details.country}
+                this.state.jsonData.user.details.country} ,
+                &nbsp;
+                {this.state.jsonData &&
+                this.state.jsonData.user &&
+                this.state.jsonData.user.membership &&
+                this.state.jsonData.user.membership.date_joined}
             </div>
           </Modal.Body>
           <Modal.Footer>
