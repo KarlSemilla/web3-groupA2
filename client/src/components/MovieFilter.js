@@ -1,7 +1,8 @@
 import React from 'react'
-import './filter.css'
-import Slider from 'react-rangeslider'
-import 'react-rangeslider/lib/index.css'
+import './filter.css';
+import Slider from 'react-rangeslider';
+import 'react-rangeslider/lib/index.css';
+import Button from '@material-ui/core/Button';
 
 class MovieFilter extends React.Component{
 
@@ -158,6 +159,7 @@ class MovieFilter extends React.Component{
                                 <input className='radios' type="radio" name="time"  checked={isFinite(this.state.beforeValue)&&this.state.beforeValue!==''}
                                         onChange={this.handleRadio}/>
                                 <label className="lables">Before:</label>
+
                                 <button  className="filterBtn" onClick={this.handleBeforeFilter}>Search</button>
                                 <input className='searchbar' type="text" placeholder="Before.." value={this.state.beforeValue}
                                  onChange={this.handleBeforeBar}

@@ -1,5 +1,5 @@
 import React from 'react';
-import myLogo from '../mylogo.png';
+import myLogo from '../logo.jpg';
 import { NavLink } from 'react-router-dom';
 
 const HeaderBar = function (props) {

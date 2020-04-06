@@ -23,10 +23,12 @@
 
 }
 .left img{
+    width:250px;
+    height:400px;
     margin-top: 2em;
 }
 .left button{
-    margin: 1em;
+    margin: 2em;
 }
 .left h1{
     font-weight: bolder;
@@ -35,6 +37,62 @@
 .small{
     cursor: pointer;
 
+}
+.heading{
+  float:center;
+    text-align:center;
+}
+.heading h1{
+  color:white;
+  margin-top:10px;
+  text-align:center;
+  font-weight:bold;
+  display:inline-block;
+  content: "\00a0";
+   padding-right: 5px;
+}
+.body{
+  width:100%;
+  top:0;
+   left:0;
+  right:0;
+  position: absolute;
+    align-items: center;
+    background-color:var(--header-back);
+    color:white;
+
+}
+.bottomBtn{
+  bottom:0;
+  right:5;
+  position:absolute;
+}
+.avatar{
+   display: none;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height:260px;
+  width:100%;
+  background-color:var(--header-back);
+  text-align:center;
+  display:block;
+  margin-right:0 auto;
+  margin-left: 0 auto;
+  clear:both;
+}
+ .avatar img{
+  float:center;
+  margin-top:5px;
+  float:center;
+  margin-left:0 auto;
+  margin-right: 0 auto;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
 }
 .mid{
     float:left;
@@ -90,7 +148,9 @@
 .right ul span{
     margin: 1em;
 }
-
+.button2 button{
+  color:white;
+}
 .closeBtn{
     float: right;
     position: absolute;
@@ -107,7 +167,11 @@
 .closeBtn:hover {
     background-color: rgb(50, 123, 197);;
   }
-
+.details{
+  margin-top:65px;
+  text-align:center;
+  display:block;
+}
 .addBtn{
     clear: left;
     position: relative;
@@ -133,7 +197,9 @@
 /* .table1 thead {
     position: fixed;
 } */
-
+.button1 button{
+  margin:10px;
+}
 .table1 th:nth-child(1){
     cursor: unset;
   }

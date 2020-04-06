@@ -1,6 +1,20 @@
 import React from "react";
 import './Home.css';
 import {Link} from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    margin: {
+      margin: theme.spacing(2),
+      padding:'20px'
+    },
+    extendedIcon: {
+      marginRight: theme.spacing(1),
+    },
+  }),
+);
 
 
 class Home extends React.Component {
@@ -21,7 +35,6 @@ class Home extends React.Component {
         //get passed data from parent comppnet
         this.props.performBrowse();
     }
-
  render() {
     let imgUrl = "https://images.unsplash.com/photo-1528460033278-a6ba57020470?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=975&q=80";
     //got image from https://source.unsplash.com/
@@ -42,10 +55,12 @@ class Home extends React.Component {
                     </form>
                     <div>
                         <Link to='/browse'>
-                            <button className = 'button' onClick = {this.handleSearch}>Display Matching Movies</button>
+                              <Button  size="large" variant="contained" color="primary" aria-label="contained primary button group" onClick = {this.handleSearch}>
+                              Display Matching Movies </Button>
                         </Link>
                         <Link to='/browse'>
-                            <button className = 'button' onClick = {this.handleBrowse}>Show All Movies</button>
+                         <Button  size="large" variant="contained" color="primary" aria-label="contained primary button group"onClick = {this.handleBrowse}>
+                              Show All Movies </Button>
                         </Link>
                     </div>
                 </div>

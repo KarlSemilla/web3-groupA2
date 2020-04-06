@@ -2,7 +2,9 @@ import React from "react";
 import "./MovieDetails.css";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { makeStyles } from '@material-ui/core/styles';
 //import { NavLink } from 'react-router-dom';
 //import {Route,Redirect} from 'react-router-dom';
 
@@ -66,29 +68,33 @@ class HeaderMenu extends React.Component {
     return (
       //Learned how to use Model and Button from https://react-bootstrap.github.io/components/modal/
       <>
-        <Button variant="primary" onClick={this.handleShow}>
-          About
-        </Button>
-        <Button variant="primary" onClick={this.handleProShow}>
-          Profile
-        </Button>
-        {/* <Button variant="primary"><NavLink exact to='/profile' activeClassName='active'>Profile
-            </NavLink></Button> */}
-        <Button variant="primary">
-          <a href={"http://localhost:8080/logout"}>
+      <div class="button1">
+      <ButtonGroup size="large" variant="contained" color="primary" aria-label="contained primary button group">
+        <Button onClick={this.handleShow}>About</Button>
+        <Button  onClick={this.handleProShow}>Profile</Button>
+        <Button> <a href={"http://localhost:8080/logout"}>
             <span className="logout">Log out</span>
-          </a>
-        </Button>
+          </a></Button>
+      </ButtonGroup>
+      </div>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>COMP4513 - Assignment1</Modal.Title>
+            <Modal.Title>COMP4513 - Assignment 2</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>Group member: Yichen Li</p>
+          <div class="body">
+            <p>Group members</p>
+            <ul>
+            <li>Yichen Li</li>
+            <li>Katrina Pauls</li>
+            <li>Karl Semilla</li>
+            <li>Derek Nguyen</li>
+            <li>Chris Kwong </li>
+            </ul>
             <p>
-              <a href="https://lyc2760008.github.io/test">Github Link</a>
+              <a href="https://github.com/lyc2760008/web3-groupA2">Github Link</a>
             </p>
-            <p>Technology used: React</p>
+            <p>Technology used: React, Node JS</p>
             <p>Learning sources:</p>
             <ul className="fa-ul">
               <li>
@@ -123,25 +129,31 @@ class HeaderMenu extends React.Component {
               </li>
             </ul>
             <p>
-              Third party code used:{" "}
-              <a href=" https://codepen.io/kunihiko_sugiura/pen/YGbmKj">
+              Third party code used:
+              </p>
+              <ul>
+              <li><a href=" https://codepen.io/kunihiko_sugiura/pen/YGbmKj">
                 Half star for ratings
-              </a>
-            </p>
+              </a></li>
+              <li><a href=" https://material-ui.com/">
+                Material UI
+              </a></li>
+            </ul>
+            </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
+          <div class="bottomBtn">
+            <Button variant="contained" color="secondary" onClick={this.handleClose}>
               Close
             </Button>
+          </div>
           </Modal.Footer>
         </Modal>
 
         <Modal show={this.state.showPro} onHide={this.handleProClose}>
           <Modal.Header closeButton>
-            <Modal.Title>User Information</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <img
+            <div class="avatar">
+            <img 
               src={
                 this.state.jsonData &&
                 this.state.jsonData.user &&
@@ -150,37 +162,37 @@ class HeaderMenu extends React.Component {
               }
               alt=""
             ></img>
-            <p>
-              First Name:{" "}
+            <div class="heading">
+            <h1>
               {this.state.jsonData &&
                 this.state.jsonData.user &&
                 this.state.jsonData.user.details &&
-                this.state.jsonData.user.details.firstname}
-            </p>
-            <p>
-              Last Name:{" "}
-              {this.state.jsonData &&
+                this.state.jsonData.user.details.firstname}  
+                 </h1>
+                 <h1>
+                 {this.state.jsonData &&
                 this.state.jsonData.user &&
                 this.state.jsonData.user.details &&
                 this.state.jsonData.user.details.lastname}
-            </p>
-            <p>
-              City:{" "}
+                </h1>
+            </div>
+              </div>
+          </Modal.Header>
+          <Modal.Body>
+            <div class="details">
               {this.state.jsonData &&
                 this.state.jsonData.user &&
                 this.state.jsonData.user.details &&
-                this.state.jsonData.user.details.city}
-            </p>
-            <p>
-              Country:{" "}
+                this.state.jsonData.user.details.city}  ,
+                &nbsp;
               {this.state.jsonData &&
                 this.state.jsonData.user &&
                 this.state.jsonData.user.details &&
                 this.state.jsonData.user.details.country}
-            </p>
+            </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleProClose}>
+            <Button variant="contained" color="secondary" onClick={this.handleProClose}>
               Close
             </Button>
           </Modal.Footer>

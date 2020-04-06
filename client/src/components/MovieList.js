@@ -28,6 +28,7 @@ class MovieList extends React.Component {
                         <th onClick={this.sortTitle}>Title</th>
                         <th onClick={this.sortYear}>Year</th>
                         <th onClick={this.sortRating}>Rating</th>
+                         <th></th>
                         <th>Total found:</th>
                         <th>{this.props.movies.length} Movies</th>
                     </tr>
