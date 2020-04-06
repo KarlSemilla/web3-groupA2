@@ -4,7 +4,6 @@ import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { makeStyles } from '@material-ui/core/styles';
 //import { NavLink } from 'react-router-dom';
 //import {Route,Redirect} from 'react-router-dom';
 
@@ -68,7 +67,7 @@ class HeaderMenu extends React.Component {
     return (
       //Learned how to use Model and Button from https://react-bootstrap.github.io/components/modal/
       <>
-      <div class="button1">
+      <div className="button1">
       <ButtonGroup size="large" variant="contained" color="primary" aria-label="contained primary button group">
         <Button onClick={this.handleShow}>About</Button>
         <Button  onClick={this.handleProShow}>Profile</Button>

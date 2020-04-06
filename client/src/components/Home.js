@@ -2,19 +2,6 @@ import React from "react";
 import './Home.css';
 import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    margin: {
-      margin: theme.spacing(2),
-      padding:'20px'
-    },
-    extendedIcon: {
-      marginRight: theme.spacing(1),
-    },
-  }),
-);
 
 
 class Home extends React.Component {

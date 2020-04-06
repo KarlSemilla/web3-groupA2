@@ -2,7 +2,6 @@ import React from 'react'
 import './filter.css';
 import Slider from 'react-rangeslider';
 import 'react-rangeslider/lib/index.css';
-import Button from '@material-ui/core/Button';
 
 class MovieFilter extends React.Component{
 
