@@ -81,7 +81,7 @@ class HeaderMenu extends React.Component {
             <Modal.Title>COMP4513 - Assignment 2</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <div class="body">
+          <div className="body">
             <p>Group members</p>
             <ul>
             <li>Yichen Li</li>
@@ -141,7 +141,7 @@ class HeaderMenu extends React.Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-          <div class="bottomBtn">
+          <div className="bottomBtn">
             <Button variant="contained" color="secondary" onClick={this.handleClose}>
               Close
             </Button>
@@ -151,7 +151,7 @@ class HeaderMenu extends React.Component {
 
         <Modal show={this.state.showPro} onHide={this.handleProClose}>
           <Modal.Header closeButton>
-            <div class="avatar">
+            <div className="avatar">
             <img 
               src={
                 this.state.jsonData &&
@@ -161,7 +161,7 @@ class HeaderMenu extends React.Component {
               }
               alt=""
             ></img>
-            <div class="heading">
+            <div className="heading">
             <h1>
               {this.state.jsonData &&
                 this.state.jsonData.user &&
@@ -178,7 +178,7 @@ class HeaderMenu extends React.Component {
               </div>
           </Modal.Header>
           <Modal.Body>
-            <div class="details">
+            <div className="details">
               {this.state.jsonData &&
                 this.state.jsonData.user &&
                 this.state.jsonData.user.details &&
