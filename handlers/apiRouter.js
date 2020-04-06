@@ -190,7 +190,6 @@ router.get("/getUser", helper.ensureAuthenticated, (req, resp) => {
   });
 
   router.route("/user/:userid/update/favorite").post(function(req, resp) {
-    console.log(req.body);
     UserModel.updateOne(
       { id: req.params.userid },
       { favorites: req.body },
